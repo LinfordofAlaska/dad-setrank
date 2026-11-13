@@ -9,98 +9,145 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#000;--panel:#101310;--line:#232a22;--text:#f4f4f0;--muted:#9aa396;--green:#6cbf56;--green2:#8fdc78;--ink:#06100a;--danger:#ff6b5e}
-:root[data-theme=light]{--bg:#f4f4ee;--panel:#fff;--line:#d9dcd2;--text:#0c0f0b;--muted:#586255;--green:#3d8c2b;--green2:#2f7a1f;--ink:#fff}
-@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f4f4ee;--panel:#fff;--line:#d9dcd2;--text:#0c0f0b;--muted:#586255;--green:#3d8c2b;--green2:#2f7a1f;--ink:#fff}}
+:root{--bg:#000;--panel:#101310;--line:#232a22;--text:#f4f4f0;--muted:#9aa396;--green:#6cbf56;--green2:#8fdc78;--ink:#06100a;--danger:#ff6b5e;--amber:#e3b341;
+  --c3:#6cbf56;--c2:#3f7f33;--c1:#7b8577;--c0:#c4524a}
+:root[data-theme=light]{--bg:#f4f4ee;--panel:#fff;--line:#d9dcd2;--text:#0c0f0b;--muted:#586255;--green:#3d8c2b;--green2:#2f7a1f;--ink:#fff;--danger:#b3261e;--amber:#8a6100;--c3:#3d8c2b;--c2:#6fae5e;--c1:#8a9486;--c0:#b3261e}
+@media (prefers-color-scheme:light){:root:not([data-theme=dark]){--bg:#f4f4ee;--panel:#fff;--line:#d9dcd2;--text:#0c0f0b;--muted:#586255;--green:#3d8c2b;--green2:#2f7a1f;--ink:#fff;--danger:#b3261e;--amber:#8a6100;--c3:#3d8c2b;--c2:#6fae5e;--c1:#8a9486;--c0:#b3261e}}
 *{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 Inter,system-ui,-apple-system,sans-serif;padding-bottom:calc(88px + env(safe-area-inset-bottom))}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.45 Inter,system-ui,-apple-system,sans-serif;padding-bottom:calc(124px + env(safe-area-inset-bottom))}
 .wrap{max-width:680px;margin:0 auto;padding:0 16px}
-header{padding:18px 0 10px;display:flex;align-items:center;gap:14px}
+header{padding:18px 0 8px;display:flex;align-items:center;gap:14px}
 header img{width:56px;height:56px;border-radius:12px;flex:none;border:1px solid var(--line)}
 h1{font:400 clamp(26px,7vw,38px)/1 Anton,Impact,sans-serif;letter-spacing:.02em;text-transform:uppercase;margin:0}
 h1 span{color:var(--green)}
 .sub{color:var(--muted);font-size:.92rem;margin:2px 0 0}
-.hi{margin:6px 0 14px;font-size:1.02rem}
+.hi{margin:6px 0 12px;font-size:1.02rem}
 .tabs{display:flex;gap:6px;position:sticky;top:0;background:var(--bg);padding:8px 0;z-index:5;border-bottom:1px solid var(--line)}
 .tab{flex:1;padding:10px 6px;border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;font:600 .9rem Inter,sans-serif;cursor:pointer}
 .tab[aria-selected=true]{background:var(--green);color:var(--ink);border-color:var(--green)}
 .tab .n{opacity:.8;font-weight:500}
+.how{margin:14px 0 4px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+.how b.k{font:400 1.05rem Anton,sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--green)}
+.how ol{margin:8px 0 10px;padding-left:20px}
+.how li{margin:3px 0}
+.words{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0}
+.w{font-size:.8rem;font-weight:600;padding:4px 10px;border-radius:99px;border:1px solid}
+.w[data-v="3"]{background:var(--c3);color:var(--ink);border-color:var(--c3)}
+.w[data-v="2"]{border-color:var(--c2);color:var(--green2)}
+.w[data-v="1"]{border-color:var(--c1);color:var(--muted)}
+.w[data-v="0"]{border-color:var(--c0);color:var(--danger)}
+.listen{display:inline-block;margin-top:10px;color:var(--green2);font-weight:600;text-decoration:none;border-bottom:1px solid var(--green)}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 4px}
 .chip{padding:6px 12px;border-radius:99px;border:1px solid var(--line);background:none;color:var(--muted);font:500 .85rem Inter,sans-serif;cursor:pointer}
 .chip[aria-pressed=true]{color:var(--text);border-color:var(--green)}
-.list{list-style:none;margin:10px 0;padding:0;display:grid;gap:8px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
-.card.in{border-color:var(--green)}
+.list{list-style:none;margin:10px 0;padding:0;display:grid;gap:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+.card[data-r="3"]{border-color:var(--c3)}
+.card[data-r="2"]{border-color:var(--c2)}
+.card[data-r="1"]{border-color:var(--c1)}
+.card[data-r="0"]{border-color:var(--c0)}
+.card.own{opacity:.75}
 .row{display:flex;align-items:center;gap:10px}
 .rk{font:400 1.5rem/1 Anton,sans-serif;color:var(--green);width:2ch;text-align:center;flex:none}
 .meta{flex:1;min-width:0}
 .t{font-weight:600;line-height:1.25;overflow-wrap:anywhere}
 .a{color:var(--muted);font-size:.86rem}
 .by{display:inline-block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--green);margin-left:6px}
-.ib{min-width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--text);font:600 1rem Inter,sans-serif;cursor:pointer;flex:none;display:grid;place-items:center}
-.ib:disabled{opacity:.3;cursor:default}
-.ib.add{background:var(--green);color:var(--ink);border-color:var(--green);font-size:1.3rem}
-.ib.on{background:none;color:var(--green);border-color:var(--green)}
-.ib.x{color:var(--danger)}
-.ib:focus-visible,.tab:focus-visible,.chip:focus-visible,.btn:focus-visible{outline:2px solid var(--green2);outline-offset:2px}
-iframe{width:100%;height:80px;border:0;border-radius:12px;margin-top:8px;display:block}
-.empty,.note{color:var(--muted);padding:18px 4px}
-.btn{display:block;width:100%;padding:15px;border:0;border-radius:12px;background:var(--green);color:var(--ink);font:700 1.05rem Inter,sans-serif;cursor:pointer}
+.ib{min-width:44px;height:44px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--text);font:600 .8rem Inter,sans-serif;cursor:pointer;flex:none;display:flex;gap:5px;align-items:center;justify-content:center;padding:0 10px}
+.ib.play{min-width:76px}
+.ib.open{border-color:var(--green);color:var(--green2)}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.seg button{min-height:44px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--muted);font:600 .8rem/1.15 Inter,sans-serif;cursor:pointer;padding:4px 2px}
+.seg button[data-v="3"][aria-pressed=true]{background:var(--c3);border-color:var(--c3);color:var(--ink)}
+.seg button[data-v="2"][aria-pressed=true]{background:rgba(108,191,86,.22);border-color:var(--c2);color:var(--green2)}
+.seg button[data-v="1"][aria-pressed=true]{background:rgba(154,163,150,.22);border-color:var(--c1);color:var(--text)}
+.seg button[data-v="0"][aria-pressed=true]{background:rgba(255,107,94,.18);border-color:var(--c0);color:var(--danger)}
+.seg button.full{opacity:.45}
+button:focus-visible,.chip:focus-visible,.tab:focus-visible,.listen:focus-visible{outline:2px solid var(--green2);outline-offset:2px}
+iframe{width:100%;height:80px;border:0;border-radius:12px;margin-top:10px;display:block}
+audio{width:100%;margin-top:10px;display:block}
+.empty,.note{color:var(--muted);padding:14px 4px}
+.btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;background:var(--green);color:var(--ink);font:700 1.05rem Inter,sans-serif;cursor:pointer}
 .btn:disabled{opacity:.45;cursor:default}
 .bar{position:fixed;left:0;right:0;bottom:0;background:var(--bg);border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom));z-index:6}
-.bar .wrap{display:flex;gap:12px;align-items:center;padding:0}
-.bar .c{font:400 1.4rem Anton,sans-serif;min-width:5.2ch;color:var(--green)}
-.bar .btn{padding:12px}
+.bar .wrap{padding:0}
+.stats{display:flex;justify-content:space-between;align-items:baseline;gap:10px;font-size:.84rem;color:var(--muted);margin-bottom:6px}
+.stats b{font:400 1.25rem Anton,sans-serif;color:var(--green);letter-spacing:.02em}
+.stats .nx{background:none;border:0;color:var(--green2);font:600 .84rem Inter,sans-serif;cursor:pointer;padding:6px 0}
+.prog{height:6px;border-radius:3px;background:var(--line);margin-bottom:10px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--green);transition:width .25s}
 .msg{margin:10px 0;padding:10px 12px;border-radius:10px;font-size:.92rem}
 .msg.ok{background:rgba(108,191,86,.14);border:1px solid var(--green)}
 .msg.bad{background:rgba(255,107,94,.12);border:1px solid var(--danger)}
-.bar-bg{height:6px;border-radius:3px;background:var(--line);margin-top:6px;overflow:hidden}
-.bar-bg i{display:block;height:100%;background:var(--green)}
-.spread{font-size:.76rem;color:var(--muted);margin-top:4px}
-.pts{font:400 1.25rem Anton,sans-serif;text-align:right;min-width:3.4ch;flex:none}
-.pts small{display:block;font:500 .65rem Inter,sans-serif;color:var(--muted);letter-spacing:.06em}
+.toast{position:fixed;left:16px;right:16px;bottom:calc(132px + env(safe-area-inset-bottom));max-width:648px;margin:0 auto;z-index:9;background:var(--panel);border:1px solid var(--danger);color:var(--text);padding:12px 14px;border-radius:12px;font-size:.92rem;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.stack{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--line);margin-top:8px}
+.stack i{display:block;height:100%}
+.spread{font-size:.78rem;color:var(--muted);margin-top:6px}
+.spread em{font-style:normal;color:var(--danger);font-weight:600}
+.pts{font:400 1.5rem Anton,sans-serif;text-align:right;min-width:3ch;flex:none;line-height:1}
+.pts small{display:block;font:500 .65rem Inter,sans-serif;color:var(--muted);letter-spacing:.06em;margin-top:3px}
+.cut{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;margin:6px 0}
+.cut:before,.cut:after{content:"";flex:1;border-top:1px dashed var(--line)}
 .fine{color:var(--muted);font-size:.78rem;text-align:center;padding:22px 0}
 .err{max-width:420px;margin:12vh auto;padding:0 16px;text-align:center}
 .err img{width:96px;border-radius:18px}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
+@media (max-width:360px){.seg button{font-size:.74rem}}
 </style></head>
 <body>
 <div id="app" class="wrap" hidden>
   <header>
     <img src="dad-logo.png" alt="DÄD">
-    <div><h1>DÄD <span>SetRank</span></h1><p class="sub">Pick and rank your top 10 for the new set.</p></div>
+    <div><h1>DÄD <span>SetRank</span></h1><p class="sub">Rate every song. The best rise to the top.</p></div>
   </header>
   <p class="hi" id="hi"></p>
   <div class="tabs" role="tablist">
-    <button class="tab" role="tab" id="tSongs" aria-selected="true">Songs <span class="n" id="nSongs"></span></button>
-    <button class="tab" role="tab" id="tMine" aria-selected="false">My top 10 <span class="n" id="nMine"></span></button>
+    <button class="tab" role="tab" id="tRate" aria-selected="true">Rate songs <span class="n" id="nRate"></span></button>
     <button class="tab" role="tab" id="tRes" aria-selected="false">Results</button>
   </div>
-  <section id="vSongs">
+  <section id="vRate">
+    <div class="how" id="how">
+      <b class="k">How it works</b>
+      <ol>
+        <li>Tap ▶ Listen on a song, then give it a rating.</li>
+        <li>Rate every song except your own. Those are skipped.</li>
+        <li>You get <span id="capA"></span> Hell yes, so save them for the ones you really want to play.</li>
+        <li>Results stay hidden for all of us until everyone has voted or <span id="dl"></span>.</li>
+      </ol>
+      <div class="words"><span class="w" data-v="3">Hell yes</span><span class="w" data-v="2">Great tune</span><span class="w" data-v="1">OK</span><span class="w" data-v="0">No way</span></div>
+      <a class="listen" href="https://open.spotify.com/playlist/3JQZG9jTSckaNBeYHL7ILk" target="_blank" rel="noopener">Listen to everything on shuffle in Spotify &rarr;</a>
+      <div class="a" style="margin-top:6px">Come and See isn’t on Spotify, so play it right here on its card.</div>
+    </div>
     <div class="chips" id="chips"></div>
     <ul class="list" id="songList"></ul>
-  </section>
-  <section id="vMine" hidden>
-    <p class="note" id="mineHelp">Tap + on songs you want. Then order them here, best first. Your #1 gets 10 points, #2 gets 9, and so on.</p>
-    <ol class="list" id="mineList" style="padding:0"></ol>
+    <div id="ownBox" hidden>
+      <div class="cut">Your songs (skipped)</div>
+      <ul class="list" id="ownList"></ul>
+    </div>
   </section>
   <section id="vRes" hidden><div id="resBox"></div></section>
   <p class="fine">Made for DÄD, West Seattle. Songs play through Spotify.</p>
 </div>
-<div class="bar" id="bar" hidden><div class="wrap"><span class="c" id="count">0/10</span><button class="btn" id="submit" disabled>Submit my picks</button></div></div>
+<div class="bar" id="bar" hidden><div class="wrap">
+  <div class="stats"><span><b id="cRated">0/0</b> rated</span><span>Hell yes <b id="cThree">0/8</b></span><button class="nx" id="next">Next unrated &darr;</button></div>
+  <div class="prog"><i id="progBar" style="width:0"></i></div>
+  <button class="btn" id="submit" disabled>Submit my ratings</button>
+</div></div>
+<div class="toast" id="toast" hidden role="status"></div>
 <div class="err" id="bad" hidden><img src="dad-logo.png" alt=""><h1 style="margin-top:14px">Link needed</h1><p class="sub">This page works from the personal link the band sent you. Open that link again, or ask Ben to resend it.</p></div>
 
 <script>
 (function(){
-  var MAX = 10;
-  var API = 'https://hello-world-wild-king-a2ebdad-setrank.ben-2ae.workers.dev';
-  var SONGS = [{"id": "02I6aBglJjgzxLoT65ssHw", "t": "Sting and a Bite", "a": "Ben Linford", "by": "Ben"}, {"id": "3loLDTxBVsHus9RAERxSH1", "t": "Gypsy Woman", "a": "Jonathan Tyler & The Northern Lights", "by": "Ben"}, {"id": "6kooDsorCpWVMGc994XjWN", "t": "Black Betty", "a": "Ram Jam", "by": "Ben"}, {"id": "7eogexfpzqrkrJ8Z6B9kHQ", "t": "I Killed Robert Johnson", "a": "The Stone Foxes", "by": "Ben"}, {"id": "4bINqmqxF9EUNcRvA0TZqi", "t": "Monkey Business", "a": "Skid Row", "by": "Chad"}, {"id": "0Evi149gGfqy6qLVsDSny6", "t": "Wrathchild", "a": "Iron Maiden", "by": "Chad"}, {"id": "0R5Lm5tXNbaORjdzEalM2U", "t": "Fame", "a": "Infectious Grooves", "by": "Chad"}, {"id": "52vPkD50txtHUPjHptBvkv", "t": "Gettin' Betta - Live", "a": "Pat Travers Band", "by": "Chad"}, {"id": "4XdLlfscf06Tk1Ny6JQi84", "t": "Too Fast for Love", "a": "Mötley Crüe", "by": "Chad"}, {"id": "1pHPpLVH2XEN0xYRoQs4wq", "t": "Word Up!", "a": "Korn", "by": "Chad"}, {"id": "59WN2psjkt1tyaxjspN8fp", "t": "Killing In The Name", "a": "Rage Against The Machine", "by": "Todd"}, {"id": "6hqIXyo6GxydAnoI8XeIrV", "t": "Rusty Cage", "a": "Soundgarden", "by": "Todd"}, {"id": "39RGjsGMaKN7r7BZRdn1wV", "t": "Mr. Brownstone", "a": "Guns N' Roses", "by": "Todd"}, {"id": "7w6PJe5KBPyvuRYxFkPssC", "t": "No More Tears", "a": "Ozzy Osbourne", "by": "Todd"}, {"id": "1XIh7vGeTRTbCmWAX6A8u8", "t": "Cult of Personality", "a": "Living Colour", "by": "Todd"}, {"id": "2Ghp7Ko67utW6Xk07MkVKj", "t": "Wasted Years", "a": "Iron Maiden", "by": "Greg"}, {"id": "337kipThk7s7nHJ8POg1jK", "t": "Why Go", "a": "Pearl Jam", "by": "Greg"}, {"id": "56SkdBKyR2zOkjk6wVFI9s", "t": "Possum Kingdom", "a": "Toadies", "by": "Greg"}, {"id": "21DoHdylVabjs39DDttptx", "t": "Big Empty", "a": "Stone Temple Pilots", "by": "Greg"}, {"id": "7jIAttgQTpLDoNtykIQXjH", "t": "Blister In The Sun", "a": "Violent Femmes", "by": "Greg"}, {"id": "7x8dCjCr0x6x2lXKujYD34", "t": "The Pretender", "a": "Foo Fighters", "by": "Joel"}, {"id": "1L94M3KIu7QluZe63g64rv", "t": "Alive", "a": "Pearl Jam", "by": "Joel"}, {"id": "3yZJDgC3byQVVeZk1SzGBE", "t": "Drag My Body", "a": "Hot Water Music", "by": "Joel"}, {"id": "77YKoNCjP5hWqiXMRG2839", "t": "Shine", "a": "Collective Soul", "by": "Joel"}, {"id": "1vcxF91pWs9uNwDROuiCPB", "t": "Savior", "a": "Rise Against", "by": "Joel"}];
+  var API = 'https://hello-world-wild-king-a2ebdad-setrank.ben-2ae.workers.dev';   /* set to the Worker URL */
+  var CAP = 8;    /* Hell yes per person; the Worker confirms the value */
+  var WORDS = ['No way', 'OK', 'Great tune', 'Hell yes'];
+  var SONGS = [{"id": "02I6aBglJjgzxLoT65ssHw", "t": "Sting and a Bite", "a": "Ben Linford", "by": "Ben"}, {"id": "3loLDTxBVsHus9RAERxSH1", "t": "Gypsy Woman", "a": "Jonathan Tyler & The Northern Lights", "by": "Ben"}, {"id": "6kooDsorCpWVMGc994XjWN", "t": "Black Betty", "a": "Ram Jam", "by": "Ben"}, {"id": "7eogexfpzqrkrJ8Z6B9kHQ", "t": "I Killed Robert Johnson", "a": "The Stone Foxes", "by": "Ben"}, {"id": "come-and-see", "t": "Come and See", "a": "Ben Linford (original)", "by": "Ben", "src": "come-and-see.mp3"}, {"id": "4bINqmqxF9EUNcRvA0TZqi", "t": "Monkey Business", "a": "Skid Row", "by": "Chad"}, {"id": "0Evi149gGfqy6qLVsDSny6", "t": "Wrathchild", "a": "Iron Maiden", "by": "Chad"}, {"id": "0R5Lm5tXNbaORjdzEalM2U", "t": "Fame", "a": "Infectious Grooves", "by": "Chad"}, {"id": "52vPkD50txtHUPjHptBvkv", "t": "Gettin' Betta - Live", "a": "Pat Travers Band", "by": "Chad"}, {"id": "4XdLlfscf06Tk1Ny6JQi84", "t": "Too Fast for Love", "a": "Mötley Crüe", "by": "Chad"}, {"id": "1pHPpLVH2XEN0xYRoQs4wq", "t": "Word Up!", "a": "Korn", "by": "Chad"}, {"id": "59WN2psjkt1tyaxjspN8fp", "t": "Killing In The Name", "a": "Rage Against The Machine", "by": "Todd"}, {"id": "6hqIXyo6GxydAnoI8XeIrV", "t": "Rusty Cage", "a": "Soundgarden", "by": "Todd"}, {"id": "39RGjsGMaKN7r7BZRdn1wV", "t": "Mr. Brownstone", "a": "Guns N' Roses", "by": "Todd"}, {"id": "7w6PJe5KBPyvuRYxFkPssC", "t": "No More Tears", "a": "Ozzy Osbourne", "by": "Todd"}, {"id": "1XIh7vGeTRTbCmWAX6A8u8", "t": "Cult of Personality", "a": "Living Colour", "by": "Todd"}, {"id": "2Ghp7Ko67utW6Xk07MkVKj", "t": "Wasted Years", "a": "Iron Maiden", "by": "Greg"}, {"id": "337kipThk7s7nHJ8POg1jK", "t": "Why Go", "a": "Pearl Jam", "by": "Greg"}, {"id": "56SkdBKyR2zOkjk6wVFI9s", "t": "Possum Kingdom", "a": "Toadies", "by": "Greg"}, {"id": "21DoHdylVabjs39DDttptx", "t": "Big Empty", "a": "Stone Temple Pilots", "by": "Greg"}, {"id": "7jIAttgQTpLDoNtykIQXjH", "t": "Blister In The Sun", "a": "Violent Femmes", "by": "Greg"}, {"id": "7x8dCjCr0x6x2lXKujYD34", "t": "The Pretender", "a": "Foo Fighters", "by": "Joel"}, {"id": "1L94M3KIu7QluZe63g64rv", "t": "Alive", "a": "Pearl Jam", "by": "Joel"}, {"id": "3yZJDgC3byQVVeZk1SzGBE", "t": "Drag My Body", "a": "Hot Water Music", "by": "Joel"}, {"id": "77YKoNCjP5hWqiXMRG2839", "t": "Shine", "a": "Collective Soul", "by": "Joel"}, {"id": "1vcxF91pWs9uNwDROuiCPB", "t": "Savior", "a": "Rise Against", "by": "Joel"}];
   var $ = function(id){ return document.getElementById(id); };
   var byId = {}; SONGS.forEach(function(s){ byId[s.id] = s; });
   var q = new URLSearchParams(location.search), K = q.get('k');
   try { if(K){ localStorage.setItem('setrank.k', K); } else { K = localStorage.getItem('setrank.k'); } } catch(e){}
-  var mine = [], voted = false, filter = 'All', lastSaved = '[]', openPlayer = null;
+  var me = '', R = {}, voted = false, lastSaved = '{}', filter = 'To rate', openPlayer = null, deadline = 0, toastT = 0;
 
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function api(path, opt){
@@ -109,118 +156,186 @@ iframe{width:100%;height:80px;border:0;border-radius:12px;margin-top:8px;display
       return r.json().then(function(j){ return r.ok ? j : Promise.reject(j.error || 'error'); });
     });
   }
+  function isOwn(s){ return s.by.toLowerCase() === me; }
+  function rateable(){ return SONGS.filter(function(s){ return !isOwn(s); }); }
+  function draftKey(){ return 'setrank2.' + (K || '').slice(0, 6); }
+  function saveDraft(){ try { localStorage.setItem(draftKey(), JSON.stringify(R)); } catch(e){} }
+
+  /* Each person sees the songs in their own steady random order, so the same songs aren't always first. */
+  function order(list){
+    var h = 2166136261, i; for(i = 0; i < K.length; i++){ h = Math.imul(h ^ K.charCodeAt(i), 16777619); }
+    function rnd(){ h |= 0; h = h + 0x6D2B79F5 | 0; var t = Math.imul(h ^ h >>> 15, 1 | h); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }
+    var a = list.slice(); for(i = a.length - 1; i > 0; i--){ var j = Math.floor(rnd() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; }
+    return a;
+  }
+
+  function counts(){
+    var n = 0, three = 0;
+    rateable().forEach(function(s){ if(R[s.id] !== undefined){ n++; if(R[s.id] === 3) three++; } });
+    return {n: n, total: rateable().length, three: three};
+  }
+  function dirty(){
+    var o = {}; rateable().forEach(function(s){ if(R[s.id] !== undefined) o[s.id] = R[s.id]; });
+    return JSON.stringify(o) !== lastSaved;
+  }
 
   function show(tab){
-    ['Songs','Mine','Res'].forEach(function(n){
-      $('t' + n).setAttribute('aria-selected', String(n === tab));
-      $('v' + n).hidden = n !== tab;
-    });
+    $('tRate').setAttribute('aria-selected', String(tab === 'Rate')); $('tRes').setAttribute('aria-selected', String(tab === 'Res'));
+    $('vRate').hidden = tab !== 'Rate'; $('vRes').hidden = tab !== 'Res';
+    $('bar').hidden = tab !== 'Rate';
     if(tab === 'Res') loadResults();
     window.scrollTo(0, 0);
   }
 
-  function player(id){
-    var el = document.getElementById('pl-' + id);
-    if(!el) return;
-    if(el.firstChild){ el.innerHTML = ''; openPlayer = null; renderSongs(); return; }
-    var f = document.createElement('iframe');
-    f.src = 'https://open.spotify.com/embed/track/' + id + '?theme=0';
-    f.allow = 'encrypted-media; autoplay; clipboard-write'; f.title = 'Spotify player';
-    el.appendChild(f); openPlayer = id;
+  function playerHtml(s){ return '<div id="pl-' + s.id + '"></div>'; }
+  function mount(id){
+    var el = document.getElementById('pl-' + id), s = byId[id]; if(!el) return false;
+    el.innerHTML = '';
+    if(s.src){ var au = document.createElement('audio'); au.controls = true; au.preload = 'auto'; au.src = s.src; el.appendChild(au); }
+    else { var f = document.createElement('iframe'); f.src = 'https://open.spotify.com/embed/track/' + id + '?theme=0'; f.allow = 'encrypted-media; autoplay; clipboard-write'; f.title = 'Spotify player'; f.loading = 'eager'; el.appendChild(f); }
+    return true;
+  }
+  function player(id){ openPlayer = openPlayer === id ? null : id; renderSongs(); }
+
+  function card(s, own){
+    var v = R[s.id], opens = openPlayer === s.id;
+    var seg = own ? '' : '<div class="seg" role="group" aria-label="Rate ' + esc(s.t) + '">' + [3, 2, 1, 0].map(function(n){
+      return '<button type="button" data-rate="' + s.id + '" data-v="' + n + '" aria-pressed="' + (v === n) + '">' + WORDS[n] + '</button>';
+    }).join('') + '</div>';
+    return '<li class="card' + (own ? ' own' : '') + '"' + (v !== undefined ? ' data-r="' + v + '"' : '') + ' id="c-' + s.id + '"><div class="row">' +
+      '<button class="ib play' + (opens ? ' open' : '') + '" data-play="' + s.id + '" aria-label="' + (opens ? 'Close player for ' : 'Listen to ') + esc(s.t) + '">' + (opens ? '&times; Close' : '&#9654; Listen') + '</button>' +
+      '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + (own ? 'Yours' : esc(s.by)) + '</span></div></div></div>' +
+      playerHtml(s) + seg + '</li>';
   }
 
   function renderSongs(){
-    var keep = openPlayer;
-    var list = SONGS.filter(function(s){ return filter === 'All' || s.by === filter; });
-    $('songList').innerHTML = list.map(function(s){
-      var on = mine.indexOf(s.id) >= 0;
-      return '<li class="card' + (on ? ' in' : '') + '"><div class="row">' +
-        '<button class="ib" data-play="' + s.id + '" aria-label="Preview ' + esc(s.t) + '">&#9654;</button>' +
-        '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + esc(s.by) + '</span></div></div>' +
-        (on ? '<button class="ib on" data-rm="' + s.id + '" aria-label="Remove ' + esc(s.t) + '">&#10003;</button>'
-            : '<button class="ib add" data-add="' + s.id + '" aria-label="Add ' + esc(s.t) + '"' + (mine.length >= MAX ? ' disabled' : '') + '>+</button>') +
-        '</div><div id="pl-' + s.id + '"></div></li>';
-    }).join('');
-    if(keep && document.getElementById('pl-' + keep)){ player(keep); }
-    $('nSongs').textContent = '(' + SONGS.length + ')';
+    var rest = order(rateable());
+    var list = rest.filter(function(s){
+      if(filter === 'To rate') return R[s.id] === undefined;
+      return filter === 'All' || s.by === filter;
+    });
+    $('songList').innerHTML = list.length ? list.map(function(s){ return card(s, false); }).join('')
+      : '<li class="empty">' + (filter === 'To rate' ? 'Every song is rated. Check the bar below and submit.' : 'Nothing here.') + '</li>';
+    var own = SONGS.filter(isOwn);
+    $('ownBox').hidden = !own.length;
+    $('ownList').innerHTML = own.map(function(s){ return card(s, true); }).join('');
+    if(openPlayer && !mount(openPlayer)){ openPlayer = null; }
+    renderBar();
   }
 
   function renderChips(){
-    var names = ['All'].concat(SONGS.map(function(s){ return s.by; }).filter(function(v, i, a){ return a.indexOf(v) === i; }));
-    $('chips').innerHTML = names.map(function(n){ return '<button class="chip" data-f="' + esc(n) + '" aria-pressed="' + (n === filter) + '">' + esc(n === 'All' ? 'All' : n + '’s picks') + '</button>'; }).join('');
+    var by = SONGS.filter(function(s){ return !isOwn(s); }).map(function(s){ return s.by; }).filter(function(v, i, a){ return a.indexOf(v) === i; });
+    var names = ['To rate', 'All'].concat(by);
+    $('chips').innerHTML = names.map(function(n){
+      var label = n === 'To rate' ? 'To rate (' + (counts().total - counts().n) + ')' : n === 'All' ? 'All' : n + '’s picks';
+      return '<button class="chip" data-f="' + esc(n) + '" aria-pressed="' + (n === filter) + '">' + esc(label) + '</button>';
+    }).join('');
   }
 
-  function renderMine(){
-    $('mineList').innerHTML = mine.length ? mine.map(function(id, i){
-      var s = byId[id];
-      return '<li class="card in"><div class="row"><span class="rk">' + (i + 1) + '</span>' +
-        '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '</div></div>' +
-        '<button class="ib" data-up="' + i + '" aria-label="Move up"' + (i === 0 ? ' disabled' : '') + '>&uarr;</button>' +
-        '<button class="ib" data-dn="' + i + '" aria-label="Move down"' + (i === mine.length - 1 ? ' disabled' : '') + '>&darr;</button>' +
-        '<button class="ib x" data-rm="' + id + '" aria-label="Remove">&times;</button></div></li>';
-    }).join('') : '<li class="empty">Nothing yet. Go to Songs and tap + on your favorites.</li>';
-    $('nMine').textContent = '(' + mine.length + ')';
-    $('count').textContent = mine.length + '/' + MAX;
-    var dirty = JSON.stringify(mine) !== lastSaved;
-    $('submit').disabled = !mine.length || (!dirty && voted);
-    $('submit').textContent = voted ? (dirty ? 'Update my picks' : 'Picks saved') : 'Submit my picks';
+  function renderBar(){
+    var c = counts();
+    $('cRated').textContent = c.n + '/' + c.total; $('cThree').textContent = c.three + '/' + CAP;
+    $('progBar').style.width = (c.total ? Math.round(100 * c.n / c.total) : 0) + '%';
+    $('nRate').textContent = '(' + (c.total - c.n) + ' left)';
+    var done = c.n === c.total;
+    $('submit').disabled = !done || (voted && !dirty());
+    $('submit').textContent = !done ? 'Rate all ' + c.total + ' songs to submit' : voted ? (dirty() ? 'Update my ratings' : 'Ratings saved') : 'Submit my ratings';
+    $('next').hidden = done;
+    renderChips();
   }
 
-  function refresh(){ renderSongs(); renderMine(); }
+  function toast(t){
+    var el = $('toast'); el.textContent = t; el.hidden = false; clearTimeout(toastT); toastT = setTimeout(function(){ el.hidden = true; }, 3800);
+  }
+
+  function rate(id, v){
+    if(R[id] === v){ return; }
+    if(v === 3 && counts().three >= CAP){ toast('That’s all ' + CAP + ' of your Hell yes. Change one of them to Great tune first.'); return; }
+    R[id] = v; saveDraft();
+    var cardEl = document.getElementById('c-' + id);
+    if(cardEl){
+      cardEl.setAttribute('data-r', v);
+      Array.prototype.forEach.call(cardEl.querySelectorAll('.seg button'), function(b){ b.setAttribute('aria-pressed', String(+b.dataset.v === v)); });
+    }
+    renderBar();
+  }
 
   function loadResults(){
     var box = $('resBox'); box.innerHTML = '<p class="note">Loading…</p>';
     api('/results').then(function(r){
+      deadline = r.deadline || deadline;
       var head = '<p class="note" style="padding-bottom:6px">' + r.voters + ' of ' + r.total + ' have voted' + (r.pending && r.pending.length ? '. Still out: ' + esc(r.pending.join(', ')) : '. Everyone is in.') + '</p>';
       if(r.locked){
-        var when = new Date(r.deadline).toLocaleString('en-US', {weekday:'long', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZone:'America/Los_Angeles'}) + ' PT';
         box.innerHTML = head + '<div class="msg ok">' + (r.voted
-          ? 'Your picks are in. To keep it fair, results stay hidden for everyone until all ' + r.total + ' have voted or ' + esc(when) + ', whichever comes first.'
-          : 'Submit your own picks first. Results stay hidden for everyone until all ' + r.total + ' have voted or ' + esc(when) + '.') + '</div>';
+          ? 'Your ratings are in. To keep it fair, results stay hidden for everyone until all ' + r.total + ' have voted or ' + esc(when(r.deadline)) + ', whichever comes first.'
+          : 'Submit your own ratings first. Results stay hidden for everyone until all ' + r.total + ' have voted or ' + esc(when(r.deadline)) + '.') + '</div>';
         return;
       }
-      if(!r.items.length){ box.innerHTML = head; return; }
-      var top = r.items[0].points || 1;
-      box.innerHTML = head + '<ol class="list" style="padding:0">' + r.items.map(function(it, i){
-        var s = byId[it.id] || {t: it.id, a: ''};
-        var sp = it.ranks.slice().sort(function(a, b){ return a - b; }).map(function(n){ return '#' + n; }).join(' ');
-        return '<li class="card' + (i < MAX ? ' in' : '') + '"><div class="row"><span class="rk">' + (i + 1) + '</span>' +
-          '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '</div>' +
-          '<div class="bar-bg"><i style="width:' + Math.round(100 * it.points / top) + '%"></i></div>' +
-          '<div class="spread">' + it.voters + ' of ' + r.voters + ' ranked it: ' + sp + '</div></div>' +
-          '<div class="pts">' + it.points + '<small>PTS</small></div></div></li>';
-      }).join('') + '</ol>';
+      var seen = {}, items = r.items.filter(function(it){ return byId[it.id]; });
+      items.forEach(function(it){ seen[it.id] = 1; });
+      var cols = ['var(--c3)', 'var(--c2)', 'var(--c1)', 'var(--c0)'];
+      var html = items.map(function(it, i){
+        var s = byId[it.id], tot = it.c[0] + it.c[1] + it.c[2] + it.c[3] || 1;
+        var stack = [3, 2, 1, 0].map(function(n, j){ return it.c[n] ? '<i style="width:' + (100 * it.c[n] / tot) + '%;background:' + cols[j] + '"></i>' : ''; }).join('');
+        var parts = [3, 2, 1].filter(function(n){ return it.c[n]; }).map(function(n){ return it.c[n] + ' ' + WORDS[n]; });
+        var spread = parts.join(' · ') + (it.c[0] ? (parts.length ? ' · ' : '') + '<em>' + it.c[0] + ' No way</em>' : '');
+        return (i === 12 ? '<li class="cut">Shortlist cutoff</li>' : '') +
+          '<li class="card' + (i < 12 ? '' : ' own') + '"' + (i < 12 ? ' data-r="3"' : '') + '><div class="row"><span class="rk">' + (i + 1) + '</span>' +
+          '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + esc(s.by) + '</span></div>' +
+          '<div class="stack">' + stack + '</div><div class="spread">' + spread + ' &nbsp;(' + it.n + ' rated)</div></div>' +
+          '<div class="pts">' + it.avg.toFixed(2) + '<small>OF 3</small></div></div></li>';
+      }).join('');
+      var missing = SONGS.filter(function(s){ return !seen[s.id]; });
+      if(missing.length){
+        html += '<li class="cut">Not rated yet</li>' + missing.map(function(s){
+          return '<li class="card own"><div class="row"><div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + esc(s.by) + '</span></div></div></div></li>';
+        }).join('');
+      }
+      box.innerHTML = head + '<p class="note" style="padding-top:0">Ranked by average rating. Hell yes = 3, Great tune = 2, OK = 1, No way = 0. Your own songs weren’t rated by you.</p><ol class="list" style="padding:0">' + html + '</ol>';
     }).catch(function(e){ box.innerHTML = '<div class="msg bad">' + (e === 'link' ? 'This link isn’t recognized.' : 'Couldn’t load results. Try again.') + '</div>'; });
   }
+  function when(ms){ return new Date(ms).toLocaleString('en-US', {weekday:'long', month:'short', day:'numeric', hour:'numeric', minute:'2-digit', timeZone:'America/Los_Angeles'}) + ' PT'; }
 
   function flash(text, ok){
     var d = document.createElement('div'); d.className = 'msg ' + (ok ? 'ok' : 'bad'); d.textContent = text;
-    var host = $('vMine'); host.insertBefore(d, host.firstChild); setTimeout(function(){ d.remove(); }, 5000);
+    var host = $('vRate'); host.insertBefore(d, host.firstChild); setTimeout(function(){ d.remove(); }, 5000);
   }
 
   document.addEventListener('click', function(e){
     var b = e.target.closest('button'); if(!b) return;
     var d = b.dataset;
-    if(d.f !== undefined){ filter = d.f; renderChips(); renderSongs(); return; }
+    if(d.f !== undefined){ filter = d.f; renderSongs(); return; }
     if(d.play){ player(d.play); return; }
-    if(d.add){ if(mine.length < MAX && mine.indexOf(d.add) < 0){ mine.push(d.add); refresh(); } return; }
-    if(d.rm){ mine = mine.filter(function(x){ return x !== d.rm; }); refresh(); return; }
-    if(d.up !== undefined){ var i = +d.up; if(i > 0){ var t = mine[i]; mine[i] = mine[i - 1]; mine[i - 1] = t; refresh(); } return; }
-    if(d.dn !== undefined){ var j = +d.dn; if(j < mine.length - 1){ var u = mine[j]; mine[j] = mine[j + 1]; mine[j + 1] = u; refresh(); } return; }
+    if(d.rate){ rate(d.rate, +d.v); return; }
   });
-  $('tSongs').onclick = function(){ show('Songs'); }; $('tMine').onclick = function(){ show('Mine'); }; $('tRes').onclick = function(){ show('Res'); };
+  $('tRate').onclick = function(){ show('Rate'); }; $('tRes').onclick = function(){ show('Res'); };
+  $('next').onclick = function(){
+    var s = order(rateable()).filter(function(x){ return R[x.id] === undefined; })[0]; if(!s) return;
+    if(filter !== 'All' && filter !== 'To rate' && filter !== s.by){ filter = 'To rate'; renderSongs(); }
+    var el = document.getElementById('c-' + s.id); if(el){ el.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+  };
   $('submit').onclick = function(){
     var btn = this; btn.disabled = true; btn.textContent = 'Saving…';
-    api('/ballot', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ranking: mine})}).then(function(){
-      voted = true; lastSaved = JSON.stringify(mine); renderMine(); flash('Saved. You can change it any time.', true); show('Res');
-    }).catch(function(){ renderMine(); flash('That didn’t save. Check your connection and try again.', false); });
+    var out = {}; rateable().forEach(function(s){ if(R[s.id] !== undefined) out[s.id] = R[s.id]; });
+    api('/ballot', {method: 'PUT', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ratings: out})}).then(function(){
+      voted = true; lastSaved = JSON.stringify(out); renderBar(); flash('Saved. You can change any rating until results open.', true); show('Res');
+    }).catch(function(err){ renderBar(); flash(typeof err === 'string' && err.indexOf('Hell yes') >= 0 ? err : 'That didn’t save. Check your connection and try again.', false); });
   };
 
   if(!K || !API){ $('bad').hidden = false; return; }
   api('/ballot').then(function(b){
-    mine = (b.ranking || []).filter(function(id){ return byId[id]; }); voted = b.voted; lastSaved = JSON.stringify(mine);
-    $('hi').textContent = 'Hi ' + b.name + '. ' + (voted ? 'Your picks are in. You can still change them.' : 'Pick up to ' + MAX + ', best first.');
-    $('app').hidden = false; $('bar').hidden = false; renderChips(); refresh();
+    me = String(b.name || '').toLowerCase(); voted = b.voted; deadline = b.deadline || 0; CAP = b.maxThrees || CAP;
+    var draft = {}; try { draft = JSON.parse(localStorage.getItem(draftKey()) || '{}') || {}; } catch(e){}
+    R = {}; var src = voted ? b.ratings : draft;
+    rateable().forEach(function(s){ var v = src[s.id]; if(v === 0 || v === 1 || v === 2 || v === 3){ R[s.id] = v; } });
+    if(voted){ var o = {}; rateable().forEach(function(s){ if(b.ratings[s.id] !== undefined) o[s.id] = b.ratings[s.id]; }); lastSaved = JSON.stringify(o); }
+    var c = counts();
+    if(voted && c.n < c.total){ /* the song list changed after they voted */ }
+    filter = c.n === c.total ? 'All' : 'To rate';
+    $('capA').textContent = CAP; $('dl').textContent = when(deadline);
+    $('hi').textContent = 'Hi ' + b.name + '. ' + (voted ? 'Your ratings are in. You can still change them.' : 'Give every song a word.');
+    if(c.n > 0){ $('how').hidden = true; }
+    $('app').hidden = false; $('bar').hidden = false; renderSongs();
   }).catch(function(){ $('bad').hidden = false; });
 })();
 </script></body></html>
