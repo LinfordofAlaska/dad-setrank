@@ -91,11 +91,38 @@ audio{width:100%;margin-top:10px;display:block}
 .fine{color:var(--muted);font-size:.78rem;text-align:center;padding:22px 0}
 .err{max-width:420px;margin:12vh auto;padding:0 16px;text-align:center}
 .err img{width:96px;border-radius:18px}
+.gate{padding-bottom:40px}
+a.btn{text-align:center;text-decoration:none}
+.gate .how ol{margin:8px 0 12px}
+.gate .step{margin:16px 0 6px;font-weight:600}
+.gate .skip{display:block;text-align:center;margin-top:14px;color:var(--muted);font-size:.86rem}
+.gate button.btn{margin-top:12px}
+.open{display:inline-block;margin-top:2px;font-size:.78rem;color:var(--green2);text-decoration:none}
+.open:hover{text-decoration:underline}
+.fine a{color:var(--muted)}
 [hidden]{display:none!important}
 @media (prefers-reduced-motion:no-preference){.card{transition:border-color .2s}}
 @media (max-width:360px){.seg button{font-size:.74rem}}
 </style></head>
 <body>
+<div id="gate" class="wrap gate" hidden>
+  <header>
+    <img src="dad-logo.png" alt="DÄD">
+    <div><h1>DÄD <span>SetRank</span></h1><p class="sub">First, sign in to Spotify.</p></div>
+  </header>
+  <div class="how">
+    <b class="k">Step 1: Sign in to Spotify</b>
+    <p style="margin:8px 0 0">Spotify only plays full songs to people who are signed in. Without it you get 30-second previews. You only need to do this once on this browser.</p>
+    <p class="step">1. Sign in</p>
+    <a class="btn" id="gateLogin" href="https://accounts.spotify.com/login" target="_blank" rel="noopener">Sign in to Spotify</a>
+    <p class="step">2. Test it</p>
+    <p class="a" style="margin:0 0 6px">Come back here and tap play. If it keeps going past 30 seconds, you’re set. If not, the Spotify app will still play every song in full.</p>
+    <div id="gateEmbed"></div>
+    <div class="msg" id="gateMsg" hidden></div>
+    <button class="btn" id="gateGo" disabled>Continue to the vote</button>
+    <a class="skip" href="#" id="gateSkip">I’ll listen in the Spotify app instead</a>
+  </div>
+</div>
 <div id="app" class="wrap" hidden>
   <header>
     <img src="dad-logo.png" alt="DÄD">
@@ -127,7 +154,7 @@ audio{width:100%;margin-top:10px;display:block}
     </div>
   </section>
   <section id="vRes" hidden><div id="resBox"></div></section>
-  <p class="fine">Made for DÄD, West Seattle. Songs play through Spotify.</p>
+  <p class="fine">Made for DÄD, West Seattle. Songs play through Spotify. <a href="#" id="regate">Spotify sign-in help</a></p>
 </div>
 <div class="bar" id="bar" hidden><div class="wrap">
   <div class="stats"><span><b id="cRated">0/0</b> rated</span><span>Hell yes <b id="cThree">0/8</b></span><button class="nx" id="next">Next unrated &darr;</button></div>
@@ -212,7 +239,8 @@ audio{width:100%;margin-top:10px;display:block}
     }).join('') + '</div>';
     return '<li class="card' + (own ? ' own' : '') + '"' + (v !== undefined ? ' data-r="' + v + '"' : '') + ' id="c-' + s.id + '"><div class="row">' +
       '<button class="ib play' + (opens ? ' open' : '') + '" data-play="' + s.id + '" aria-label="' + (opens ? 'Close player for ' : 'Listen to ') + esc(s.t) + '">' + (opens ? '&times; Close' : '&#9654; Listen') + '</button>' +
-      '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + (own ? 'Yours' : esc(s.by)) + '</span></div></div></div>' +
+      '<div class="meta"><div class="t">' + esc(s.t) + '</div><div class="a">' + esc(s.a) + '<span class="by">' + (own ? 'Yours' : esc(s.by)) + '</span></div>' +
+      (s.srcs || s.src ? '' : '<a class="open" href="https://open.spotify.com/track/' + s.id + '" target="_blank" rel="noopener">Open in Spotify &#8599;</a>') + '</div></div>' +
       playerHtml(s) + seg + '</li>';
   }
 
@@ -330,6 +358,41 @@ audio{width:100%;margin-top:10px;display:block}
     }).catch(function(err){ renderBar(); flash(typeof err === 'string' && err.indexOf('Hell yes') >= 0 ? err : 'That didn’t save. Check your connection and try again.', false); });
   };
 
+  function startApp(){ $('gate').hidden = true; $('app').hidden = false; $('bar').hidden = false; renderSongs(); window.scrollTo(0, 0); }
+  function gateState(){ try { return localStorage.getItem('setrank.sp'); } catch(e){ return null; } }
+  function gateSet(v){ try { localStorage.setItem('setrank.sp', v); } catch(e){} }
+
+  var gateReady = false, gateCtl = null, loginClicked = false;
+  function gateMsg(kind, text){ var m = $('gateMsg'); m.className = 'msg ' + kind; m.textContent = text; m.hidden = false; }
+  function makeTest(){
+    if(!gateReady) return;
+    $('gateEmbed').innerHTML = '<div id="gateTarget"></div>';
+    window.SPOTIFY_API.createController($('gateTarget'), {uri: 'spotify:track:6kooDsorCpWVMGc994XjWN', width: '100%', height: 80}, function(c){
+      gateCtl = c;
+      c.addListener('playback_update', function(e){
+        var d = e.data || {};
+        if(!(d.duration > 0) || (d.isPaused && !d.position)) return;
+        if(d.duration <= 31000){
+          gateMsg('bad', 'That’s just a preview. Sign in to Spotify in the other tab, then tap play again. If it’s still a preview, your browser is limiting Spotify on this page. You can still vote: tap Open in Spotify on any song to hear it in full in the Spotify app, or use the shuffle playlist link.');
+          $('gateGo').disabled = false;
+        } else {
+          gateSet('ok'); try { c.pause(); } catch(x){}
+          gateMsg('ok', 'You’re signed in. Full songs will play.'); $('gateGo').disabled = false;
+        }
+      });
+    });
+  }
+  function showGate(){
+    $('gate').hidden = false; $('app').hidden = true; $('bar').hidden = true;
+    window.onSpotifyIframeApiReady = function(api){ window.SPOTIFY_API = api; gateReady = true; makeTest(); };
+    var sc = document.createElement('script'); sc.src = 'https://open.spotify.com/embed/iframe-api/v1'; sc.async = true; document.body.appendChild(sc);
+    $('gateLogin').onclick = function(){ loginClicked = true; };
+    document.addEventListener('visibilitychange', function(){ if(!document.hidden && loginClicked && gateState() === null && !$('gate').hidden){ loginClicked = false; $('gateMsg').hidden = true; makeTest(); } });
+    $('gateGo').onclick = startApp;
+    $('gateSkip').onclick = function(e){ e.preventDefault(); gateSet('app'); startApp(); };
+  }
+  $('regate').onclick = function(e){ e.preventDefault(); try { localStorage.removeItem('setrank.sp'); } catch(x){} location.reload(); };
+
   if(!K || !API){ $('bad').hidden = false; return; }
   api('/ballot').then(function(b){
     me = String(b.name || '').toLowerCase(); voted = b.voted; deadline = b.deadline || 0; CAP = b.maxThrees || CAP;
@@ -338,12 +401,11 @@ audio{width:100%;margin-top:10px;display:block}
     rateable().forEach(function(s){ var v = src[s.id]; if(v === 0 || v === 1 || v === 2 || v === 3){ R[s.id] = v; } });
     if(voted){ var o = {}; rateable().forEach(function(s){ if(b.ratings[s.id] !== undefined) o[s.id] = b.ratings[s.id]; }); lastSaved = JSON.stringify(o); }
     var c = counts();
-    if(voted && c.n < c.total){ /* the song list changed after they voted */ }
     filter = c.n === c.total ? 'All' : 'To rate';
     $('capA').textContent = CAP; $('dl').textContent = when(deadline);
     $('hi').textContent = 'Hi ' + b.name + '. ' + (voted ? 'Your ratings are in. You can still change them.' : 'Give every song a word.');
     if(c.n > 0){ $('how').hidden = true; }
-    $('app').hidden = false; $('bar').hidden = false; renderSongs();
+    if(gateState() === null) showGate(); else startApp();
   }).catch(function(){ $('bad').hidden = false; });
 })();
 </script></body></html>
