@@ -145,6 +145,7 @@ a.btn{text-align:center;text-decoration:none}
       </ol>
       <div class="words"><span class="w" data-v="3">Hell yes</span><span class="w" data-v="2">Great tune</span><span class="w" data-v="1">OK</span><span class="w" data-v="0">No way</span></div>
       <a class="listen" href="https://open.spotify.com/playlist/3JQZG9jTSckaNBeYHL7ILk" target="_blank" rel="noopener">Listen to everything on shuffle in Spotify &rarr;</a>
+      <div class="a" style="margin-top:6px"><b>Songs only play 30 seconds?</b> Tap <b>Open in Spotify</b> on any song to hear it in full in the Spotify app.</div>
       <div class="a" style="margin-top:6px">Ben’s two originals have more than one version. Play them all right on the card: Come and See (the original Push-K recording and the new version) and Sting and a Bite (April 2019 and the current version). Rate the song, not the recording quality.</div>
     </div>
     <div class="chips" id="chips"></div>
@@ -155,7 +156,7 @@ a.btn{text-align:center;text-decoration:none}
     </div>
   </section>
   <section id="vRes" hidden><div id="resBox"></div></section>
-  <p class="fine">Made for DÄD, West Seattle. Songs play through Spotify. <a href="#" id="regate">Spotify sign-in help</a></p>
+  <p class="fine">Made for DÄD, West Seattle. Songs play through Spotify. <a href="#" id="regate">Hearing only 30 seconds?</a></p>
 </div>
 <div class="bar" id="bar" hidden><div class="wrap">
   <div class="stats"><span><b id="cRated">0/0</b> rated</span><span>Hell yes <b id="cThree">0/8</b></span><button class="nx" id="next">Next unrated &darr;</button></div>
@@ -396,7 +397,7 @@ a.btn{text-align:center;text-decoration:none}
     $('gateGo').onclick = startApp;
     $('gateSkip').onclick = function(e){ e.preventDefault(); gateSet('app'); startApp(); };
   }
-  $('regate').onclick = function(e){ e.preventDefault(); try { localStorage.removeItem('setrank.sp'); } catch(x){} location.reload(); };
+  $('regate').onclick = function(e){ e.preventDefault(); showGate(); window.scrollTo(0, 0); };
 
   if(!K || !API){ $('bad').hidden = false; return; }
   api('/ballot').then(function(b){
@@ -410,7 +411,7 @@ a.btn{text-align:center;text-decoration:none}
     $('capA').textContent = CAP; $('dl').textContent = when(deadline);
     $('hi').textContent = 'Hi ' + b.name + '. ' + (voted ? 'Your ratings are in. You can still change them.' : 'Give every song a word.');
     if(c.n > 0){ $('how').hidden = true; }
-    if(gateState() === null) showGate(); else startApp();
+    startApp();
   }).catch(function(){ $('bad').hidden = false; });
 })();
 </script></body></html>
